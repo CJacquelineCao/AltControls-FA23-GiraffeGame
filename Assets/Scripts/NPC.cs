@@ -35,5 +35,10 @@ public class NPC : MonoBehaviour
        
     }
 
+    public void setState(int state)
+    {
+        rend.sharedMaterial = material[state];
+    }
+
     
 }

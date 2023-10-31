@@ -5,6 +5,7 @@ using UnityEngine;
 public class Plate : MonoBehaviour
 {
     public TaskManager taskref;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,7 @@ public class Plate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     private void OnTriggerStay(Collider other)
     {
