@@ -10,6 +10,7 @@ public class Cup : MonoBehaviour
 
     public bool Filled;
     public bool Empty;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,15 +26,17 @@ public class Cup : MonoBehaviour
         }
         else
         {
-            Filled = false;
+           // Filled = false;
         }
-        if(Teafill.transform.localScale.y < 0.03)
+        if(Teafill.transform.localScale.y < 0.015)
         {
             Empty = true;
+            Filled = false;
         }
         else
         {
             Empty = false;
+
         }
     }
 
@@ -52,6 +55,7 @@ public class Cup : MonoBehaviour
         {
             Debug.Log("drinking");
             Teafill.transform.localScale += Minusheight;
+
         }
     }
 

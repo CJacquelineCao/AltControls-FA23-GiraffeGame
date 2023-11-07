@@ -5,6 +5,8 @@ using UnityEngine;
 public class Sip : MonoBehaviour
 {
     public TaskManager taskref;
+    public AudioSource sipSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,18 +22,33 @@ public class Sip : MonoBehaviour
     {
         if (other.tag == "cup")
         {
-            other.GetComponent<Cup>().emptyCup();
+            if (other.GetComponent<Cup>().Filled == true)
+            {
+                other.GetComponent<Cup>().emptyCup();
+                sipSound.Play();
+            }
         }
     }
     private void OnTriggerStay(Collider other)
     {
         if (other.tag == "cup")
         {
-            other.GetComponent<Cup>().emptyCup();
+            if(other.GetComponent<Cup>().Filled == true)
+            {
+                other.GetComponent<Cup>().emptyCup();
+            }
             if (other.GetComponent<Cup>().Empty == true)
             {
-                taskref.currentTasksFinished += 1;
+                taskref.CompleteTask("Drink");
+                sipSound.Stop();
             }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "cup")
+        {
+            sipSound.Stop();
         }
     }
 }

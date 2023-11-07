@@ -19,8 +19,6 @@ public class TaskManager : MonoBehaviour
 
     public List<Tasks> allTasks = new List<Tasks>();
 
-    public int MaxTaxCount;
-    public int currentTasksFinished;
     public Sprite completedBox;
     // Start is called before the first frame update
     void Start()
@@ -31,8 +29,21 @@ public class TaskManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MaxTaxCount = allTasks.Count;
-        if(currentTasksFinished == MaxTaxCount)
+        bool allDone = true;
+
+
+        for (int i = 0; i < allTasks.Count; i++)
+        {
+            if (allTasks[i].completed == false)
+            {
+                allDone = false;
+                break;
+            }
+        }
+
+
+        
+        if(allDone)
         {
             SceneManager.LoadScene(1);
         }
@@ -46,10 +57,7 @@ public class TaskManager : MonoBehaviour
         }
 
     }
-    public void AddToCompleteTally()
-    {
-        currentTasksFinished += 1;
-    }
+   
     public void CompleteTask(string task)
     {
         for(int i= 0; i<allTasks.Count; i++)
