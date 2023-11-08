@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Table : MonoBehaviour
 {
@@ -11,10 +13,17 @@ public class Table : MonoBehaviour
     public Renderer myrenderer;
 
     public NPC myNPC;
+
+    public Slider dirtinessSlider;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (dirtinessSlider != null)
+        {
+            dirtinessSlider.value = 0; // Assuming the table starts clean
+        }
     }
 
     // Update is called once per frame
@@ -34,13 +43,29 @@ public class Table : MonoBehaviour
         }
         else
         { myNPC.setState(2);}
+
+        UpdateDirtinessSlider();
+
+        if (wetspeed >= 1)
+        {
+            SceneManager.LoadScene("GameDone");
+        }
+
     }
+
     void turnWet()
     {
         float t = wetspeed;
         myrenderer.material.color = Color.Lerp(drycolor, wetcolor, t);
     }
-    private void OnTriggerEnter(Collider other)
+    void UpdateDirtinessSlider()
+    {
+         if (dirtinessSlider != null)
+         {
+                dirtinessSlider.value = wetspeed; // Update the slider with the current dirtiness
+         }
+    }
+        private void OnTriggerEnter(Collider other)
     {        
         if (other.tag == "Tea")
         {
