@@ -8,6 +8,7 @@ TagManager:
   - Tea
   - cup
   - cake
+  - ball
   layers:
   - Default
   - TransparentFX

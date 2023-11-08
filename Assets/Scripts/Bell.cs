@@ -6,6 +6,8 @@ public class Bell : MonoBehaviour
 {
     public TaskManager taskref;
     int dingCounter;
+
+    public AudioSource sound;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,7 @@ public class Bell : MonoBehaviour
     public void Ring()
     {
         //audio plays
+        sound.Play();
         dingCounter += 1;
         Debug.Log("Dinged");
     }
