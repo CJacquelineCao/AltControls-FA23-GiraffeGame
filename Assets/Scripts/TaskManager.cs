@@ -53,7 +53,7 @@ public class TaskManager : MonoBehaviour
 
         if (allDone)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("GoodEnding");
         }
 
     }

@@ -15,7 +15,10 @@ EditorBuildSettings:
     path: Assets/Scenes/RatScene.unity
     guid: 1b4d1c2d64bafa249a9585d3432e93d5
   - enabled: 1
-    path: Assets/Scenes/GameDone.unity
+    path: Assets/Scenes/BadEnding.unity
     guid: 8c95e42b309c0df4e9945b97d0b892ca
+  - enabled: 1
+    path: Assets/Scenes/GoodEnding.unity
+    guid: f4dc4e99836c4b54683947baee442f06
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: be392bd6a1a75a0428c549cb893ef0cd, type: 2}

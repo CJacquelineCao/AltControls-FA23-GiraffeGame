@@ -48,7 +48,7 @@ public class Table : MonoBehaviour
 
         if (wetspeed >= 1)
         {
-            SceneManager.LoadScene("GameDone");
+            SceneManager.LoadScene("BadEnding");
         }
 
     }
