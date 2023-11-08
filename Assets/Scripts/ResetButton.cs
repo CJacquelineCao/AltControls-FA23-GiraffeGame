@@ -16,7 +16,10 @@ public class ResetButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            ResetScene();
+        }
     }
     public void ResetScene()
     {

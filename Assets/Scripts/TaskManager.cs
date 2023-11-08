@@ -25,6 +25,8 @@ public class TaskManager : MonoBehaviour
 
     public GameObject TaskPanel;
     public Dignity Dignityref;
+
+    public AudioSource completesound;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +55,7 @@ public class TaskManager : MonoBehaviour
         {
             SceneManager.LoadScene(1);
         }
+
     }
 
     public void setTasks()
@@ -77,7 +80,8 @@ public class TaskManager : MonoBehaviour
                 if(allTasks[i].completed == false)
                 {
                     allTasks[i].completed = true;
-                    allTasks[i].TaskOBJ.GetComponentInChildren<Image>().sprite = completedBox;
+                    allTasks[i].TaskOBJ.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = completedBox;
+                    completesound.Play();
                     Dignityref.totalDignityPoints += allTasks[i].dignityPoints;
                 }
 
@@ -97,6 +101,8 @@ public class TaskManager : MonoBehaviour
                 {
                     allTasks[i].completed = true;
                     allTasks[i].TaskOBJ.GetComponentInChildren<TMP_Text>().text = allTasks[i].hiddenDesc;
+                    allTasks[i].TaskOBJ.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = completedBox;
+                    completesound.Play();
                     Dignityref.totalDignityPoints += allTasks[i].dignityPoints;
                 }
 
