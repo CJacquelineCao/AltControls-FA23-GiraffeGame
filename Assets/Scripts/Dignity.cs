@@ -17,6 +17,7 @@ public class Dignity : MonoBehaviour
         public string desc;
         public GameObject ItemObject;
         public GameObject SpawnPrefab;
+        public GameObject myObject;
         public KeyCode keytoSpawn;
         public int DignityPointsNeeded;
         public bool enabled;
@@ -92,7 +93,7 @@ public class Dignity : MonoBehaviour
                 {
                     if (allCommands[i].spawned == false)
                     {
-                        Instantiate(allCommands[i].SpawnPrefab, spawnlocation.transform.position, Quaternion.identity);
+                        allCommands[i].myObject = Instantiate(allCommands[i].SpawnPrefab, spawnlocation.transform.position, Quaternion.identity);
                         Debug.Log("ItemSpawned");
                         allCommands[i].spawned = true;
                     }

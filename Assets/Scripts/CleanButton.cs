@@ -2,21 +2,33 @@ using UnityEngine;
 
 public class CleanButton : MonoBehaviour
 {
+    public Dignity dignityref;
+    private void Start()
+    {
+        dignityref = GameObject.FindObjectOfType<Dignity>();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Backspace))
+        {
+            OnCleanButtonPressed();
+        }
+    }
     public void OnCleanButtonPressed()
     {
-        // Find all objects with the tag "SpawnedObject" and delete them.
-        GameObject[] spawnedObjects = GameObject.FindGameObjectsWithTag("SpawnedObject");
-        foreach (GameObject spawnedObj in spawnedObjects)
+        for(int i =0; i< dignityref.allCommands.Count; i++)
         {
-            Destroy(spawnedObj);
+            if(dignityref.allCommands[i].spawned == true)
+            {
+                if(dignityref.allCommands[i].myObject !=null)
+                {
+                    Destroy(dignityref.allCommands[i].myObject);
+                    dignityref.allCommands[i].spawned = false;
+                }
+            }
         }
-
-        GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
-        foreach (GameObject ball in balls)
-        {
-            Destroy(ball);
-        }
-
+       
 
     }
 
