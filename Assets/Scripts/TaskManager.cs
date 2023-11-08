@@ -12,18 +12,24 @@ public class TaskManager : MonoBehaviour
     {
         public string name;
         public string description;
-        public TMP_Text TextField;
+        public string hiddenDesc;
+        public GameObject TaskOBJ;
         public Image checkbox;
+        public int dignityPoints;
         public bool completed;
     }
 
     public List<Tasks> allTasks = new List<Tasks>();
-
+    public GameObject TaskPrefab;
     public Sprite completedBox;
+
+    public GameObject TaskPanel;
+    public Dignity Dignityref;
     // Start is called before the first frame update
     void Start()
     {
         setTasks();
+        Dignityref = GameObject.FindObjectOfType<Dignity>();
     }
 
     // Update is called once per frame
@@ -42,8 +48,8 @@ public class TaskManager : MonoBehaviour
         }
 
 
-        
-        if(allDone)
+
+        if (allDone)
         {
             SceneManager.LoadScene(1);
         }
@@ -53,24 +59,51 @@ public class TaskManager : MonoBehaviour
     {
         for (int i = 0; i < allTasks.Count; i++)
         {
-            allTasks[i].TextField.text = allTasks[i].description;
+            allTasks[i].TaskOBJ = Instantiate(TaskPrefab, TaskPanel.transform);
+
+            allTasks[i].TaskOBJ.GetComponentInChildren<TMP_Text>().text = allTasks[i].description;
+
+
         }
 
     }
-   
+
     public void CompleteTask(string task)
     {
-        for(int i= 0; i<allTasks.Count; i++)
+        for (int i = 0; i < allTasks.Count; i++)
         {
-            if(allTasks[i].name == task)
+            if (allTasks[i].name == task)
             {
-                allTasks[i].completed = true;
-                allTasks[i].checkbox.sprite = completedBox;
-               
+                if(allTasks[i].completed == false)
+                {
+                    allTasks[i].completed = true;
+                    allTasks[i].TaskOBJ.GetComponentInChildren<Image>().sprite = completedBox;
+                    Dignityref.totalDignityPoints += allTasks[i].dignityPoints;
+                }
+
+
             }
         }
-        
+
     }
 
+    public void CompleteSecretTask(string task)
+    {
+        for (int i = 0; i < allTasks.Count; i++)
+        {
+            if (allTasks[i].name == task)
+            {
+                if (allTasks[i].completed == false)
+                {
+                    allTasks[i].completed = true;
+                    allTasks[i].TaskOBJ.GetComponentInChildren<TMP_Text>().text = allTasks[i].hiddenDesc;
+                    Dignityref.totalDignityPoints += allTasks[i].dignityPoints;
+                }
 
+
+            }
+
+
+        }
+    }
 }
