@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public enum DuchessState
 {
@@ -27,10 +28,13 @@ public class DuchessController : MonoBehaviour
 
     private bool isApproaching = true;
 
+    public NPC myNPC;
+
     void Start()
     {
         startPosition = transform.position;
         endPosition = targetTransform.position;
+       
     }
 
     void Update()
@@ -43,6 +47,7 @@ public class DuchessController : MonoBehaviour
 
             case DuchessState.Slapped:
                 DecreaseDignity();
+                TemporaryFaceChange();
                 break;
 
             case DuchessState.Happy:
@@ -78,6 +83,16 @@ public class DuchessController : MonoBehaviour
             currentLerpTime = 0;
             isLerpingForward = !isLerpingForward;
         }
+    }
+    public void TemporaryFaceChange()
+    {
+        StartCoroutine(TemporaryFaceChangeCoroutine());
+    }
+    private IEnumerator TemporaryFaceChangeCoroutine()
+    {
+        myNPC.setState(2); 
+        yield return new WaitForSeconds(2); 
+         
     }
 
     public void GetSlapped()
