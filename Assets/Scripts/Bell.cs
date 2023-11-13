@@ -17,7 +17,7 @@ public class Bell : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(dingCounter == 5)
+        if(dingCounter >= 5)
         {
             taskref.CompleteSecretTask("Bell");
         }

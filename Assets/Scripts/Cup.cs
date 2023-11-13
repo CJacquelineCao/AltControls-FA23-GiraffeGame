@@ -11,6 +11,9 @@ public class Cup : MonoBehaviour
     public bool Filled;
     public bool Empty;
 
+    public GameObject steamParticles;
+    public GameObject toxicParticles;
+    public bool isPoisoned;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +41,24 @@ public class Cup : MonoBehaviour
             Empty = false;
 
         }
+
+        if(Filled == true)
+        {
+            if(isPoisoned == true)
+            {
+                toxicParticles.SetActive(true);
+            }
+            else
+            {
+                steamParticles.SetActive(true);
+            }
+
+        }
+        else
+        {
+            steamParticles.SetActive(false);
+            toxicParticles.SetActive(false);
+        }
     }
 
     public void fillCup()
@@ -55,7 +76,11 @@ public class Cup : MonoBehaviour
         {
             Debug.Log("drinking");
             Teafill.transform.localScale += Minusheight;
-
+            if(isPoisoned == true)
+            {
+                isPoisoned = false;
+                //die;
+            }
         }
     }
 

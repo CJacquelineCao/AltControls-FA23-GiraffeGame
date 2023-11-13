@@ -9,6 +9,7 @@ TagManager:
   - cup
   - cake
   - ball
+  - poison
   layers:
   - Default
   - TransparentFX

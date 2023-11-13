@@ -10,11 +10,18 @@ public class Table : MonoBehaviour
     public Color wetcolor;
 
     public float wetspeed;
+    public float dryspeed;
     public Renderer myrenderer;
 
     public NPC myNPC;
 
+
+    public float elapsedTime;
+    public float maxTime;
+    public float t;
+
     public Slider dirtinessSlider;
+
 
 
     // Start is called before the first frame update
@@ -29,11 +36,16 @@ public class Table : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       //if( Input.GetKey(KeyCode.Space))
-       // {
-       //     wetspeed += 0.001f;
-       // }
-        if(wetspeed<0.3)
+        elapsedTime += Time.deltaTime;
+        if(t <=0)
+        {
+            turnDry();
+        }
+        else
+        {
+            t = maxTime - elapsedTime;
+        }
+        if (wetspeed<0.3)
         {
             myNPC.setState(0);
         }
@@ -52,7 +64,11 @@ public class Table : MonoBehaviour
         }
 
     }
-
+    void turnDry()
+    {
+        float t = wetspeed;
+        myrenderer.material.color = Color.Lerp(gameObject.GetComponent<MeshRenderer>().material.color, drycolor, t);
+    }
     void turnWet()
     {
         float t = wetspeed;
@@ -62,19 +78,32 @@ public class Table : MonoBehaviour
     {
          if (dirtinessSlider != null)
          {
-                dirtinessSlider.value = wetspeed; // Update the slider with the current dirtiness
+            dirtinessSlider.value = 1-wetspeed;
+  
+               // dirtinessSlider.value = wetspeed; // Update the slider with the current dirtiness
          }
     }
         private void OnTriggerEnter(Collider other)
     {        
         if (other.tag == "Tea")
         {
+            t = maxTime;
+            elapsedTime = 0;
             Debug.Log("Collided");
             wetspeed += 0.001f;
             Destroy(other.gameObject);
             turnWet();
         }
+        else if(other.tag == "ball")
+        {
+            other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        }
+        else if(other.tag == "poison")
+        {
+            Destroy(other.gameObject);
+        }
 
 
     }
+
 }

@@ -18,7 +18,6 @@ public class Dignity : MonoBehaviour
         public GameObject ItemObject;
         public GameObject SpawnPrefab;
         public GameObject myObject;
-        public KeyCode keytoSpawn;
         public int DignityPointsNeeded;
         public bool enabled;
         public bool spawned;
@@ -57,49 +56,54 @@ public class Dignity : MonoBehaviour
         }
 
     }
+
+    public void openMenu()
+    {
+         if (dignityPanel.activeSelf == false)
+            {
+               dignityPanel.SetActive(true);
+            }
+    }
+    public void spawnItem(int itemnumber)
+    {
+        if(allCommands[itemnumber].enabled == true)
+        {
+            if (allCommands[itemnumber].spawned == false)
+            {
+                allCommands[itemnumber].myObject = Instantiate(allCommands[itemnumber].SpawnPrefab, spawnlocation.transform.position, Quaternion.identity);
+
+                allCommands[itemnumber].spawned = true;
+                
+            }
+        }
+        dignityPanel.SetActive(false);
+    }
     // Update is called once per frame 
     void Update()
     {
+
         checkAvailable();
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            if (dignityPanel.activeSelf == true)
-            {
-                dignityPanel.SetActive(false);
-            }
-            else
-            {
-                dignityPanel.SetActive(true);
-            }
-        }
-
-
-        pointsDisplay.text = "Current dignity points: " + totalDignityPoints;
-        for (KeyCode key = KeyCode.None; key < KeyCode.Joystick8Button19; key++)
-        {
-            if (Input.GetKey(key))
-            {
-                checkKey(key);
-            }
-        }
+        
     }
-    void checkKey(KeyCode keyPressed)
-    {
-        for (int i = 0; i < allCommands.Count; i++)
-        {
-            if (keyPressed == allCommands[i].keytoSpawn)
-            {
-                if (allCommands[i].enabled == true)
-                {
-                    if (allCommands[i].spawned == false)
-                    {
-                        allCommands[i].myObject = Instantiate(allCommands[i].SpawnPrefab, spawnlocation.transform.position, Quaternion.identity);
-                        Debug.Log("ItemSpawned");
-                        allCommands[i].spawned = true;
-                    }
+    
+    //void checkKey(KeyCode keyPressed)
+    //{
+    //    for (int i = 0; i < allCommands.Count; i++)
+    //    {
+    //        if (keyPressed == allCommands[i].keytoSpawn)
+    //        {
+    //            if (allCommands[i].enabled == true)
+    //            {
+    //                if (allCommands[i].spawned == false)
+    //                {
+    //                    allCommands[i].myObject = Instantiate(allCommands[i].SpawnPrefab, spawnlocation.transform.position, Quaternion.identity);
+    //                    Debug.Log("ItemSpawned");
+    //                    allCommands[i].spawned = true;
+    //                }
 
-                }
-            }
-        }
-    }
+    //            }
+    //        }
+    //    }
+    //}
+    
 }

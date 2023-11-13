@@ -7,7 +7,7 @@ public class Button : MonoBehaviour
 {
     public void Retry()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(2);
 
     }
 
@@ -19,7 +19,7 @@ public class Button : MonoBehaviour
 
     public void Tutorial()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene(1);
     }
 
 }
