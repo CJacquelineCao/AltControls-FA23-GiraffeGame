@@ -29,7 +29,9 @@ public class DuchessController : MonoBehaviour
     private bool isApproaching = true;
 
     public NPC myNPC;
+    public TaskManager taskref;
 
+    public AudioSource slapsound;
     void Start()
     {
         startPosition = transform.position;
@@ -46,7 +48,6 @@ public class DuchessController : MonoBehaviour
                 break;
 
             case DuchessState.Slapped:
-                DecreaseDignity();
                 TemporaryFaceChange();
                 break;
 
@@ -61,7 +62,7 @@ public class DuchessController : MonoBehaviour
 
         if (dignitySlider.value <= 0)
         {
-            SceneManager.LoadScene("GameOverScene");
+            SceneManager.LoadScene(3);
         }
     }
 
@@ -90,29 +91,21 @@ public class DuchessController : MonoBehaviour
     }
     private IEnumerator TemporaryFaceChangeCoroutine()
     {
+        myNPC.paused = true;
         myNPC.setState(2); 
-        yield return new WaitForSeconds(2); 
-         
+        yield return new WaitForSeconds(3);
+        myNPC.paused = false;
+        currentState = DuchessState.Approaching;
     }
 
     public void GetSlapped()
     {
         currentState = DuchessState.Slapped;
+        slapsound.Play();
+        myNPC.changeMood(-1);
+        taskref.CompleteSecretTask("Slap");
+
     }
 
-    void DecreaseDignity()
-    {
-        dignitySlider.value -= dignityDecreaseRate * Time.deltaTime;
-        if (dignitySlider.value <= happinessThreshold)
-        {
-            currentState = DuchessState.Angry;
-        }
-    }
 
-    public void MakeHappy()
-    {
-        // Logic to make the duchess happy
-        currentState = DuchessState.Happy;
-        dignitySlider.value = 1; // Reset dignity
-    }
 }

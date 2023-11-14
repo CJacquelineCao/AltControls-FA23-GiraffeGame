@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPC : MonoBehaviour
 {
@@ -8,31 +9,50 @@ public class NPC : MonoBehaviour
     public bool Gameon;
     public Material[] material;
     Renderer rend;
+
+    public bool paused;
+
+    public float totalMoodValue;
+    public float currentMoodValue;
+    public Slider happinessSlider;
     // Start is called before the first frame update
-   
+
 
     // Use this for initialization
     void Start()
     {
        rend = GetComponent<Renderer>();
+        currentMoodValue = totalMoodValue;
+       
     }
+
+    public void changeMood(float mood)
+    {
+        currentMoodValue += mood;
+    }
+     
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+
+        happinessSlider.maxValue = totalMoodValue;
+        happinessSlider.value = currentMoodValue;
+        if (paused == false)
         {
-            rend.sharedMaterial = material[0];
+            if (currentMoodValue < 30)
+            {
+                setState(2);
+            }
+            else if (currentMoodValue > 30 && currentMoodValue < 70)
+            {
+                setState(1);
+            }
+            else
+            { setState(0); }
+
         }
-        else if(Input.GetKeyDown(KeyCode.S))
-        {
-            rend.sharedMaterial = material[1];
-        }
-        else if(Input.GetKeyDown(KeyCode.D))
-        {
-            rend.sharedMaterial = material[2];
-        }
-       
+
     }
 
     public void setState(int state)

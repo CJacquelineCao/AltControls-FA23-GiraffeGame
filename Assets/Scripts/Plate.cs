@@ -23,7 +23,14 @@ public class Plate : MonoBehaviour
         {
             if (other.GetComponent<Cup>().Filled == true)
             {
-                taskref.CompleteTask("Serve");
+                if(other.GetComponent<Cup>().isPoisoned == false)
+                {
+                    taskref.CompleteTask("Serve");
+                }
+                else
+                {
+                    taskref.CompleteSecretTask("Poison");
+                }
 
             }
         }

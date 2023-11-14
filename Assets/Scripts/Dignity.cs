@@ -83,9 +83,13 @@ public class Dignity : MonoBehaviour
     {
 
         checkAvailable();
-        
+        pointsDisplay.text = "Current dignity points: " + totalDignityPoints;
     }
     
+    public void closeMenu()
+    {
+        dignityPanel.SetActive(false);
+    }
     //void checkKey(KeyCode keyPressed)
     //{
     //    for (int i = 0; i < allCommands.Count; i++)

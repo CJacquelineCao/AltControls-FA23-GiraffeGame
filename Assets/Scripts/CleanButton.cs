@@ -3,6 +3,7 @@ using UnityEngine;
 public class CleanButton : MonoBehaviour
 {
     public Dignity dignityref;
+    public GameObject dignityPanel;
     private void Start()
     {
         dignityref = GameObject.FindObjectOfType<Dignity>();
@@ -28,8 +29,8 @@ public class CleanButton : MonoBehaviour
                 }
             }
         }
-       
 
+        dignityPanel.SetActive(false);
     }
 
 

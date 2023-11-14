@@ -16,6 +16,7 @@ public class TaskManager : MonoBehaviour
         public GameObject TaskOBJ;
         public Image checkbox;
         public int dignityPoints;
+        public float happinessPoints;
         public bool completed;
     }
 
@@ -27,6 +28,7 @@ public class TaskManager : MonoBehaviour
     public Dignity Dignityref;
 
     public AudioSource completesound;
+    public NPC myNPC;
     // Start is called before the first frame update
     void Start()
     {
@@ -83,6 +85,8 @@ public class TaskManager : MonoBehaviour
                     allTasks[i].TaskOBJ.transform.GetChild(1).gameObject.GetComponent<Image>().sprite = completedBox;
                     completesound.Play();
                     Dignityref.totalDignityPoints += allTasks[i].dignityPoints;
+                    myNPC.changeMood(allTasks[i].happinessPoints);
+
                 }
 
 

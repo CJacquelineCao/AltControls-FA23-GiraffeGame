@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Cup : MonoBehaviour
 {
@@ -81,8 +82,15 @@ public class Cup : MonoBehaviour
             {
                 isPoisoned = false;
                 //die;
+                StartCoroutine(Die());
             }
         }
+    }
+
+    IEnumerator Die()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(5);
     }
 
 }

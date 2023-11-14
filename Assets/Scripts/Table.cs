@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 using UnityEngine.SceneManagement;
 
 public class Table : MonoBehaviour
@@ -20,17 +20,14 @@ public class Table : MonoBehaviour
     public float maxTime;
     public float t;
 
-    public Slider dirtinessSlider;
+ 
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        if (dirtinessSlider != null)
-        {
-            dirtinessSlider.value = 0; // Assuming the table starts clean
-        }
+
     }
 
     // Update is called once per frame
@@ -40,23 +37,14 @@ public class Table : MonoBehaviour
         if(t <=0)
         {
             turnDry();
+            wetspeed = 0;
         }
         else
         {
             t = maxTime - elapsedTime;
         }
-        if (wetspeed<0.3)
-        {
-            myNPC.setState(0);
-        }
-        else if(wetspeed>0.3 && wetspeed < 0.7 )
-        {
-            myNPC.setState(1);
-        }
-        else
-        { myNPC.setState(2);}
 
-        UpdateDirtinessSlider();
+
 
         if (wetspeed >= 1)
         {
@@ -66,31 +54,26 @@ public class Table : MonoBehaviour
     }
     void turnDry()
     {
-        float t = wetspeed;
-        myrenderer.material.color = Color.Lerp(gameObject.GetComponent<MeshRenderer>().material.color, drycolor, t);
+        dryspeed += 0.001f;
+        float t = dryspeed;
+        myrenderer.material.color = Color.Lerp(myrenderer.material.color, drycolor, t);
     }
     void turnWet()
     {
         float t = wetspeed;
         myrenderer.material.color = Color.Lerp(drycolor, wetcolor, t);
     }
-    void UpdateDirtinessSlider()
-    {
-         if (dirtinessSlider != null)
-         {
-            dirtinessSlider.value = 1-wetspeed;
-  
-               // dirtinessSlider.value = wetspeed; // Update the slider with the current dirtiness
-         }
-    }
+
         private void OnTriggerEnter(Collider other)
     {        
         if (other.tag == "Tea")
         {
+            dryspeed = 0;
             t = maxTime;
             elapsedTime = 0;
             Debug.Log("Collided");
             wetspeed += 0.001f;
+            myNPC.changeMood(-0.1f);
             Destroy(other.gameObject);
             turnWet();
         }
