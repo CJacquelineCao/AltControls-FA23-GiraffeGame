@@ -6,6 +6,7 @@ public class Fly : MonoBehaviour
 {
     public AudioSource buzzingSound;
     public TaskManager taskref;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class Fly : MonoBehaviour
     {
         buzzingSound.Play();
         //lerp or something that allows the gameobject the move around
+
     }
 
     public void Die()
