@@ -24,7 +24,7 @@ public class FlyManager : MonoBehaviour
 
     void SpawnFly()
     {
-        if (Random.Range(0, 11) == 1)
+        if (Random.Range(0, 900) == 1)
         {
             if(Fly.activeSelf == false)
             {
