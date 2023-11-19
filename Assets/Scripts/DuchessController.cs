@@ -15,7 +15,7 @@ public class DuchessController : MonoBehaviour
 {
     public DuchessState currentState = DuchessState.Approaching;
     public Transform targetTransform;
-    public float lerpTime = 3f;
+    public float lerpTime = 4f;
     private float currentLerpTime = 0;
 
     private Vector3 startPosition;
@@ -26,7 +26,6 @@ public class DuchessController : MonoBehaviour
     public float dignityDecreaseRate = 0.01f;
     public float happinessThreshold = 0.5f; // Threshold to make her happy again
 
-    private bool isApproaching = true;
 
     public NPC myNPC;
     public TaskManager taskref;

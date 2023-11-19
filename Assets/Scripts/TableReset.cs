@@ -4,32 +4,47 @@ using UnityEngine;
 
 public class TableReset : MonoBehaviour
 {
-    public GameObject[] tableItems; // Assign all items on the table that need to be reset
+    public GameObject[] tableItemPrefabs; // Assign all items on the table that need to be reset
+    private GameObject[] tableItemInstances;
 
     private Vector3[] originalPositions;
     private Quaternion[] originalRotations;
 
     void Start()
     {
+        tableItemInstances = new GameObject[tableItemPrefabs.Length];
+        InstansiateTableItems();
+
         // Store original positions and rotations of table items
-        originalPositions = new Vector3[tableItems.Length];
-        originalRotations = new Quaternion[tableItems.Length];
-        for (int i = 0; i < tableItems.Length; i++)
+        originalPositions = new Vector3[tableItemPrefabs.Length];
+        originalRotations = new Quaternion[tableItemPrefabs.Length];
+        for (int i = 0; i < tableItemPrefabs.Length; i++)
         {
-            originalPositions[i] = tableItems[i].transform.position;
-            originalRotations[i] = tableItems[i].transform.rotation;
+            originalPositions[i] = tableItemPrefabs[i].transform.position;
+            originalRotations[i] = tableItemPrefabs[i].transform.rotation;
         }
     }
 
-    public void ResetTable()
+    public void InstansiateTableItems()
     {
         // Reset each item to its original position and rotation
-        for (int i = 0; i < tableItems.Length; i++)
+        for (int i = 0; i < tableItemPrefabs.Length; i++)
         {
-            tableItems[i].transform.position = originalPositions[i];
-            tableItems[i].transform.rotation = originalRotations[i];
+            tableItemPrefabs[i].transform.position = originalPositions[i];
+            tableItemPrefabs[i].transform.rotation = originalRotations[i];
 
             // Add any other reset logic needed for each item, like emptying cups
         }
+    }
+    public void ResetTable()
+    {
+        // Destroy current instances
+        foreach (var item in tableItemInstances)
+        {
+            if (item != null)
+                Destroy(item);
+        }
+        
+        InstansiateTableItems();
     }
 }

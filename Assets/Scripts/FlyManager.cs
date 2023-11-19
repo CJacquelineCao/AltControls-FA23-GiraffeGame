@@ -18,13 +18,13 @@ public class FlyManager : MonoBehaviour
         SpawnFly();   
         if(Fly.activeSelf == true)
         {
-            myNPC.changeMood(-0.1f);
+            myNPC.changeMood(-0.02f);
         }
     }
 
     void SpawnFly()
     {
-        if (Random.Range(0, 900) == 1)
+        if (Random.Range(0, 8000) == 1)
         {
             if(Fly.activeSelf == false)
             {
